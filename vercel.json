@@ -13,7 +13,7 @@
         }
     ],
     "crons": [{
-        "path": "./index.js",
+        "path": "./build/index.js",
         "schedule": "0 10 * * *"
       }]
 
