@@ -7,7 +7,7 @@ export class Wallets {
         // .where('LOWER(w,id) = :address', {address} )
         // .getOne();
         const wallet = await Wallet.createQueryBuilder('w')
-        .where('LOWER(id) = :address', {address} )
+        .where('LOWER(id) = :address', {address} )   
         .getOne();
 
         return wallet || null;
