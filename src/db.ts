@@ -3,9 +3,11 @@ import { Config } from '@foal/core';
 import { DataSource } from 'typeorm';
 
 export function createDataSource(): DataSource {
-  return new DataSource({
-    type: Config.getOrThrow('database.type', 'string') as any,
 
+  const Source = new DataSource({
+
+    //type: Config.getOrThrow('database.type', 'string') as any,
+    type: 'postgres',
     //url: Config.get('database.url', 'string'), 
     url:'postgres://cankvfix:KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE@mahmud.db.elephantsql.com/cankvfix',
     //host: Config.get('database.host', 'string'),
@@ -25,6 +27,10 @@ export function createDataSource(): DataSource {
     entities: ['build/app/**/*.entity.js'],
     migrations: ['build/migrations/*.js'],
   });
+
+  
+
+  return Source
 }
 
 export const dataSource = createDataSource();
