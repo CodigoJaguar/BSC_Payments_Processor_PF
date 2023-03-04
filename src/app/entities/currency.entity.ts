@@ -14,7 +14,7 @@ export class Currency extends BaseEntity {
   @Column({nullable:false, length:20})
   symbol : string;
 
-  @Column({nullable:true})
+  @Column({nullable:false, default:18})
   decimals : number;
 
   @Column({nullable:false, length:100})

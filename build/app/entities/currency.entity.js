@@ -28,7 +28,7 @@ __decorate([
     __metadata("design:type", String)
 ], Currency.prototype, "symbol", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)({ nullable: false, default: 18 }),
     __metadata("design:type", Number)
 ], Currency.prototype, "decimals", void 0);
 __decorate([
