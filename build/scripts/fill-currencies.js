@@ -1,16 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.main = void 0;
+exports.main = exports.schema = void 0;
 const typeorm_1 = require("typeorm");
 const entities_1 = require("../app/entities");
-// export const schema = {
-//   additionalProperties: false,
-//   properties: {
-//   },
-//   required: [
-//   ],
-//   type: 'object',
-// };
+exports.schema = {
+    additionalProperties: false,
+    properties: {},
+    required: [],
+    type: 'object',
+};
 const currencies = [
     {
         name: 'BSC-USD',
@@ -50,11 +48,23 @@ async function main(args) {
         // username: "test",
         // password: "test",
         database: "./db.sqlite3",
-        entities: [entities_1.Currency, entities_1.Transaction],
+        entities: [entities_1.Currency, entities_1.Transaction, entities_1.Wallet],
         synchronize: true,
         logging: true,
         subscribers: [],
         migrations: []
+        // type: 'postgres',
+        // url:'postgres://cankvfix:KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE@mahmud.db.elephantsql.com/cankvfix',
+        // host: 'mahmud.db.elephantsql.com',
+        // port : 5432,
+        // username: 'cankvfix',
+        // password: 'KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE',
+        // database: 'cankvfix',
+        // entities: [Currency,Transaction],
+        // synchronize: true,
+        // logging: true,
+        // subscribers: [],
+        // migrations:[]
     });
     await AppDataSource.initialize();
     try {

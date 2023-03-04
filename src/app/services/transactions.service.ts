@@ -7,6 +7,7 @@ import { BigNumber } from 'bignumber.js';
 import { getConnection, QueryRunner , DataSource} from "typeorm";
 
 
+
 export class Transactions {
     @dependency
     private wallets:Wallets
@@ -40,22 +41,22 @@ export class Transactions {
         const wallet = await this.getOrCreateWallet(apiTransaction.from);
         
         const AppDataSource = new DataSource({
-            // type: "better-sqlite3",
-            // database: "./db.sqlite3", 
-            // entities: [Currency,Transaction,Wallet],
-            // synchronize: true,
-            // logging: true,
-            // subscribers: [],
-            // migrations:[]
-            type: 'postgres',
-            url:'postgres://cankvfix:KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE@mahmud.db.elephantsql.com/cankvfix',
-            host: 'mahmud.db.elephantsql.com',
-            port : 5432,
-            username: 'cankvfix',
-            password: 'KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE',
-            database: 'cankvfix',
+            type: "better-sqlite3",
+            database: "./db.sqlite3", 
+            entities: [Currency,Transaction,Wallet],
             synchronize: true,
             logging: true,
+            subscribers: [],
+            migrations:[]
+            // type: 'postgres',
+            // url:'postgres://cankvfix:KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE@mahmud.db.elephantsql.com/cankvfix',
+            // host: 'mahmud.db.elephantsql.com',
+            // port : 5432,
+            // username: 'cankvfix',
+            // password: 'KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE',
+            // database: 'cankvfix',
+            // synchronize: true,
+            // logging: true,
            
             
         })

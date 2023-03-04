@@ -1,16 +1,16 @@
 import { createConnection, DataSource } from "typeorm";
-import { Currency, Transaction } from "../app/entities";
+import { Currency, Transaction, Wallet } from "../app/entities";
 
-// export const schema = {
-//   additionalProperties: false,
-//   properties: {
+export const schema = {
+  additionalProperties: false,
+  properties: {
 
-//   },
-//   required: [
+  },
+  required: [
 
-//   ],
-//   type: 'object',
-// };
+  ],
+  type: 'object',
+};
 
 const currencies = [
 
@@ -59,11 +59,23 @@ export async function main(args: any) {
     // username: "test",
     // password: "test",
     database: "./db.sqlite3", // .\bsc_payments_processor\db.sqlite3    ./main.sqlite
-    entities: [Currency,Transaction],
+    entities: [Currency,Transaction,Wallet],
     synchronize: true,
     logging: true,
     subscribers: [],
     migrations:[]
+    // type: 'postgres',
+    // url:'postgres://cankvfix:KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE@mahmud.db.elephantsql.com/cankvfix',
+    // host: 'mahmud.db.elephantsql.com',
+    // port : 5432,
+    // username: 'cankvfix',
+    // password: 'KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE',
+    // database: 'cankvfix',
+    // entities: [Currency,Transaction],
+    // synchronize: true,
+    // logging: true,
+    // subscribers: [],
+    // migrations:[]
 })
 await AppDataSource.initialize()
 

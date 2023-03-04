@@ -37,22 +37,22 @@ class Transactions {
     async saveTransactionAndUpdateWalletBalance(transactionId, apiTransaction, currency) {
         const wallet = await this.getOrCreateWallet(apiTransaction.from);
         const AppDataSource = new typeorm_1.DataSource({
-            // type: "better-sqlite3",
-            // database: "./db.sqlite3", 
-            // entities: [Currency,Transaction,Wallet],
-            // synchronize: true,
-            // logging: true,
-            // subscribers: [],
-            // migrations:[]
-            type: 'postgres',
-            url: 'postgres://cankvfix:KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE@mahmud.db.elephantsql.com/cankvfix',
-            host: 'mahmud.db.elephantsql.com',
-            port: 5432,
-            username: 'cankvfix',
-            password: 'KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE',
-            database: 'cankvfix',
+            type: "better-sqlite3",
+            database: "./db.sqlite3",
+            entities: [entities_1.Currency, transaction_entity_1.Transaction, entities_1.Wallet],
             synchronize: true,
             logging: true,
+            subscribers: [],
+            migrations: []
+            // type: 'postgres',
+            // url:'postgres://cankvfix:KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE@mahmud.db.elephantsql.com/cankvfix',
+            // host: 'mahmud.db.elephantsql.com',
+            // port : 5432,
+            // username: 'cankvfix',
+            // password: 'KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE',
+            // database: 'cankvfix',
+            // synchronize: true,
+            // logging: true,
         });
         const dataSource = await AppDataSource.initialize();
         const queryRunner = dataSource.createQueryRunner();
