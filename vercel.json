@@ -11,10 +11,7 @@
             "src": "/(.*)",
             "dest": "/"
         }
-    ],
-    "crons": [{
-        "path": "./build/index.js",
-        "schedule": "0 10 * * *"
-      }]
+    ]
+  
 
   }
