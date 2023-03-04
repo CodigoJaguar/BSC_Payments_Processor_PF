@@ -6,7 +6,8 @@ export function createDataSource(): DataSource {
   return new DataSource({
     type: Config.getOrThrow('database.type', 'string') as any,
 
-    url: Config.get('database.url', 'string'),
+    //url: Config.get('database.url', 'string'),
+    url:'postgres://cankvfix:KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE@mahmud.db.elephantsql.com/cankvfix',
     host: Config.get('database.host', 'string'),
     port: Config.get('database.port', 'number'),
     username: Config.get('database.username', 'string'),
