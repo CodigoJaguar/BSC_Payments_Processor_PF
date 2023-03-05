@@ -1,4 +1,4 @@
-import { Context, dependency, Get, HttpResponseOK } from '@foal/core';
+import { Context, dependency, Get, Hook, HttpResponseOK } from '@foal/core';
 import { Transaction, Wallet } from '../entities';
 import { BscScanApi, Transactions } from '../services';
 
@@ -9,10 +9,21 @@ export class ApiController {
   @dependency
   private transactionsServices : Transactions;
 
+  @Hook(() => response => {
+    // Every response of this controller and its sub-controllers will be added this header.
+    response.setHeader('Access-Control-Allow-Origin', '*');
+  })
+
   @Get('/')
   async index(ctx: Context) {
     const transactions = await this.bscscanApi.listTransactions();
-    return new HttpResponseOK({transactions});
+    
+    const response =new HttpResponseOK({transactions});
+    response.setHeader('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE');
+    // You may need to allow other headers depending on what you need.
+    response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    return response;
+    
   }
 
   @Get('/procesar')
@@ -38,7 +49,12 @@ export class ApiController {
     const transactions = await this.bscscanApi.listTransactions();
     this.transactionsServices.processTransactions(transactions)
     const list = await Transaction.find({where: {to: Id.id}});
-    return new HttpResponseOK(list);
+    const response = new HttpResponseOK(list);
+
+    response.setHeader('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE');
+    response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    return response
+
   }
 
 
