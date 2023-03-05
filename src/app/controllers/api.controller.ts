@@ -60,9 +60,7 @@ export class ApiController {
     const list = await Transaction.find({where: {to: Id.id}});
     const response = new HttpResponseOK(list);
 
-    response.setHeader('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE');
-    response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    response.setHeader('Access-Control-Allow-Origin', '*');
+    
     return response
 
   }
