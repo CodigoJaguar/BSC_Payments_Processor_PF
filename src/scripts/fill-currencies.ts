@@ -45,29 +45,29 @@ const currencies = [
 export async function main(args: any) {
 //  const connection = await createConnection();
   const AppDataSource = new DataSource({
-    type: "better-sqlite3",
-    // host: "any",
-    // port: 5433,
-    // username: "test",
-    // password: "test",
-    database: "./db.sqlite3", // .\bsc_payments_processor\db.sqlite3    ./main.sqlite
-    entities: [Currency,Transaction,Wallet],
-    synchronize: true,
-    logging: true,
-    subscribers: [],
-    migrations:[]
-    // type: 'postgres',
-    // url:'postgres://cankvfix:KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE@mahmud.db.elephantsql.com/cankvfix',
-    // host: 'mahmud.db.elephantsql.com',
-    // port : 5432,
-    // username: 'cankvfix',
-    // password: 'KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE',
-    // database: 'cankvfix',
-    // entities: [Currency,Transaction],
+    // type: "better-sqlite3",
+    // // host: "any",
+    // // port: 5433,
+    // // username: "test",
+    // // password: "test",
+    // database: "./db.sqlite3", // .\bsc_payments_processor\db.sqlite3    ./main.sqlite
+    // entities: [Currency,Transaction,Wallet],
     // synchronize: true,
     // logging: true,
     // subscribers: [],
     // migrations:[]
+    type: 'postgres',
+    url:'postgres://cankvfix:KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE@mahmud.db.elephantsql.com/cankvfix',
+    host: 'mahmud.db.elephantsql.com',
+    port : 5432,
+    username: 'cankvfix',
+    password: 'KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE',
+    database: 'cankvfix',
+    entities: [Currency,Transaction,Wallet],
+    synchronize: true,
+    logging: true,
+    subscribers: [],
+    migrations:['build/migrations/*.js']
 })
 await AppDataSource.initialize()
 

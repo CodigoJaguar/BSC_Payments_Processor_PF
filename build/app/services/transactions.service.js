@@ -37,13 +37,13 @@ class Transactions {
     async saveTransactionAndUpdateWalletBalance(transactionId, apiTransaction, currency) {
         const wallet = await this.getOrCreateWallet(apiTransaction.from);
         const AppDataSource = new typeorm_1.DataSource({
-            type: "better-sqlite3",
-            database: "./db.sqlite3",
-            entities: [entities_1.Currency, transaction_entity_1.Transaction, entities_1.Wallet],
-            synchronize: true,
-            logging: true,
-            subscribers: [],
-            migrations: []
+            // type: "better-sqlite3",
+            // database: "./db.sqlite3", 
+            // entities: [Currency,Transaction,Wallet],
+            // synchronize: true,
+            // logging: true,
+            // subscribers: [],
+            // migrations:[]
             // type: 'postgres',
             // url:'postgres://cankvfix:KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE@mahmud.db.elephantsql.com/cankvfix',
             // host: 'mahmud.db.elephantsql.com',
@@ -53,19 +53,30 @@ class Transactions {
             // database: 'cankvfix',
             // synchronize: true,
             // logging: true,
+            //---------------------------------
+            type: 'postgres',
+            url: 'postgres://cankvfix:KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE@mahmud.db.elephantsql.com/cankvfix',
+            host: 'mahmud.db.elephantsql.com',
+            port: 5432,
+            username: 'cankvfix',
+            password: 'KB4cnm-mIFHfmYPFeyKtPXxq4NZ9J3EE',
+            database: 'cankvfix',
+            entities: [entities_1.Currency, transaction_entity_1.Transaction, entities_1.Wallet],
+            synchronize: true,
+            logging: true,
+            subscribers: [],
+            migrations: ['build/migrations/*.js']
         });
         const dataSource = await AppDataSource.initialize();
         const queryRunner = dataSource.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
-        console.log('Started query runner:');
         try {
-            console.log('Try started:', queryRunner);
             const transaction = this.createTransactionsEntity(queryRunner, transactionId, apiTransaction, currency, wallet);
-            console.log('CreateEntity check');
             queryRunner.manager.createQueryBuilder()
                 .update(entities_1.Wallet)
                 .set({ balance: () => `balance + ${transaction.amount}` })
+                //.set({balance: ()=> transaction.amount})
                 .where({ id: wallet.id })
                 .execute();
             console.log(`Wallet saved ,`, wallet.id);
@@ -102,9 +113,7 @@ class Transactions {
         return wallet;
     }
     createTransactionsEntity(queryRunner, id, apiTransaction, currency, wallet) {
-        console.log('CreateEntity check enter function');
         const transaction = queryRunner.manager.create(transaction_entity_1.Transaction);
-        console.log('CreateEntity check do transaction:', transaction);
         //const transaction = Transaction.create();
         //transaction.id = `rv-${apiTransaction.hash}`;
         transaction.id = id;
@@ -115,8 +124,8 @@ class Transactions {
         transaction.currency = currency;
         transaction.wallet = wallet;
         const amount = new bignumber_js_1.BigNumber(apiTransaction.value).div(new bignumber_js_1.BigNumber(10).pow(currency.decimals));
-        transaction.amount = amount.toNumber();
-        console.log(transaction);
+        transaction.amount = amount.toNumber().toString();
+        console.log('esto es amount:  --->', transaction.amount);
         return transaction;
     }
 }

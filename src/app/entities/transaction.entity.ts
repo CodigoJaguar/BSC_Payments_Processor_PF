@@ -25,7 +25,7 @@ export class Transaction extends BaseEntity {
   to: string;
 
   @Column({nullable:false})
-  amount: number;
+  amount: string;
 
   @ManyToOne(()=>Currency, (currency)=>currency.transactions)
   currency:Currency
