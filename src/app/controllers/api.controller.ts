@@ -59,7 +59,7 @@ export class ApiController {
     this.transactionsServices.processTransactions(transactions)
     const list = await Transaction.find({where: {to: Id.id}});
     const response = new HttpResponseOK(list);
-
+    response.setHeader('Access-Control-Allow-Origin', '*');
     
     return response
 
