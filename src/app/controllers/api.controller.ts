@@ -1,4 +1,4 @@
-import { Context, dependency, Get, Hook, HttpResponseOK } from '@foal/core';
+import { Context, dependency, Get, Hook, HttpResponseNoContent, HttpResponseOK, Options } from '@foal/core';
 import { Transaction, Wallet } from '../entities';
 import { BscScanApi, Transactions } from '../services';
 
@@ -13,6 +13,14 @@ export class ApiController {
     // Every response of this controller and its sub-controllers will be added this header.
     response.setHeader('Access-Control-Allow-Origin', '*');
   })
+
+  @Options('*')
+  options(ctx: Context) {
+    const response = new HttpResponseNoContent();
+    response.setHeader('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE');
+    response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    return response;
+  }
 
   @Get('/')
   async index(ctx: Context) {
