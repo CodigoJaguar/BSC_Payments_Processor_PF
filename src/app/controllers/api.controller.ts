@@ -1,5 +1,5 @@
 import { Context, dependency, Get, HttpResponseOK } from '@foal/core';
-import { Wallet } from '../entities';
+import { Transaction, Wallet } from '../entities';
 import { BscScanApi, Transactions } from '../services';
 
 export class ApiController {
@@ -29,6 +29,14 @@ export class ApiController {
     console.log(Id)
     const balance = await Wallet.find({where: {id: Id.id}});
     return new HttpResponseOK(balance);
+  }
+
+  @Get('/getWalletDonated/:id')
+  async readWallets({ request }: Context) {
+    const Id = request.params;
+    console.log(Id)
+    const list = await Transaction.find({where: {to: Id.id}});
+    return new HttpResponseOK(list);
   }
 
 
