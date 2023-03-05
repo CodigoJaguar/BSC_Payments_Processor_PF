@@ -19,6 +19,7 @@ export class ApiController {
     const response = new HttpResponseNoContent();
     response.setHeader('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE');
     response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    response.setHeader('Access-Control-Allow-Origin', '*');
     return response;
   }
 
@@ -61,6 +62,7 @@ export class ApiController {
 
     response.setHeader('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE');
     response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    response.setHeader('Access-Control-Allow-Origin', '*');
     return response
 
   }
