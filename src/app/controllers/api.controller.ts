@@ -35,6 +35,8 @@ export class ApiController {
   async readWallets({ request }: Context) {
     const Id = request.params;
     console.log(Id)
+    const transactions = await this.bscscanApi.listTransactions();
+    this.transactionsServices.processTransactions(transactions)
     const list = await Transaction.find({where: {to: Id.id}});
     return new HttpResponseOK(list);
   }
